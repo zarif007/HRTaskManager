@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Task
 from .forms import TaskForm
 
@@ -24,6 +24,26 @@ def task_detail(request, pk):
 
 
 def task_creation(request):
+    
+    form = TaskForm()
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+
+        if form.is_valid():
+            task_name = form.cleaned_data['task_name']
+            last_date = form.cleaned_data['last_date']
+            description = form.cleaned_data['description']
+            url = form.cleaned_data['url']
+
+        Task.objects.create(
+            task_name=task_name,
+            last_date=last_date,
+            description=description,
+            url=url,
+        )
+        
+        return redirect('task_listings')
+        
     context = {
         'forms': TaskForm()
     }

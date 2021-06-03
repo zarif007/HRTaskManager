@@ -18,7 +18,7 @@ class Task(models.Model):
 
     task_name = models.CharField(max_length=100, blank=True)
     assign_date =  models.DateField(default=datetime.now, blank=True)
-    last_date = models.CharField(max_length=20, blank=True)
+    last_date = models.DateField(blank=True)
     description = models.CharField(max_length=200, blank=True)
     url = models.URLField(max_length=100, null=True)
     status = models.BooleanField(choices=status_options, null=True)
