@@ -16,9 +16,9 @@ class Task(models.Model):
         (1, 'Done'),
     )
 
-    task_name = models.CharField(max_length=100, blank=True)
+    task_name = models.CharField(max_length=100)
     assign_date =  models.DateField(default=datetime.now, blank=True)
-    last_date = models.DateField(blank=True)
+    last_date = models.DateField(default=datetime.now, blank=True)
     description = models.CharField(max_length=200, blank=True)
     url = models.URLField(max_length=100, null=True)
     status = models.BooleanField(choices=status_options, null=True)
@@ -45,7 +45,6 @@ class User(AbstractUser):
         (1, 'Busy'),
     )
 
-    name = models.CharField(max_length=50)
     in_club_name = models.CharField(max_length=70)
     department = models.CharField(max_length=50, choices=department_options)
     designation = models.CharField(max_length=20, choices=designation_options)
@@ -53,4 +52,4 @@ class User(AbstractUser):
     status = models.BooleanField(choices=status_options, default=1)
 
     def __str__(self):
-        return self.name
+        return self.in_club_name
