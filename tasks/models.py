@@ -23,7 +23,7 @@ class Task(models.Model):
     url = models.URLField(max_length=100, null=True)
     status = models.BooleanField(choices=status_options, null=True)
     assign_status = models.BooleanField(choices=assingn_status_options, null=True)
-    member = models.ForeignKey('User', on_delete=models.SET_NULL, null=True)
+    member = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, blank=True)
     
     def __str__(self):
         return self.task_name

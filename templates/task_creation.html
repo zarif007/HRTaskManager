@@ -1,37 +1,81 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+{% extends 'base.html' %}
 
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+{% block content %}
 
-        <!-- Fengyuan Chen's Datepicker -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
-    </head>
-    <body>
+<form method="post">
+    {% csrf_token %}
+    <div class="flex h-screen bg-gray-200 items-center justify-center  mt-32 mb-32">
+        <div class="grid bg-white rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
+            <div class="flex justify-center py-4">
+            <div class="flex bg-purple-200 rounded-full md:p-4 p-2 border-2 border-purple-300">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+            </div>
+            </div>
 
-        <form method="post">
-            {% csrf_token %}
-            {{ forms.as_p }}
-            <button type="submit">Submit</button>
-        </form>
+            <div class="flex justify-center">
+            <div class="flex">
+                <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Add Task</h1>
+            </div>
+            </div>
 
-        <script>
-            $(function () {
-                $("#id_last_date").datepicker({
-                    format:'dd/mm/yyyy',
-                });
-            });
-        </script>
-    </body>
-</html>
+            <div class="grid grid-cols-1 mt-5 mx-7">
+                <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold" for="id_task_name">Task Name</label>
+                <input type="text" name="task_name" maxlength="100" required="" id="id_task_name" class="py-2 px-3 rounded-lg border-2 border-purple-700 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:border-transparent" type="text" placeholder="Input 1" />
+            </div>
+
+            <div class="grid grid-cols-1 mt-5 mx-7">
+                <label for="id_last_date" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Last Date</label>
+                <input type="text" name="last_date" required="" id="id_last_date" class="py-2 px-3 rounded-lg border-2 border-purple-700 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:border-transparent" type="text" placeholder="Input 1" />
+            </div>
+
+            <div class="grid grid-cols-1 mt-5 mx-7">
+                <label for="id_description" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold" for="id_task_name">Description</label>
+                <input type="text" name="description" maxlength="200" id="id_description" class="py-8 px-3 rounded-lg border-2 border-purple-700 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:border-transparent" type="text" placeholder="Input 1" />
+            </div>
+
+            <div class="grid grid-cols-1 mt-5 mx-7">
+                <label for="id_url" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Neccesary Url</label>
+                <input type="url" name="url" maxlength="100" required="" id="id_url" class="py-2 px-3 rounded-lg border-2 border-purple-700 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:border-transparent" type="text" placeholder="Input 3" />
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
+                <div class="grid grid-cols-1">
+                    <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Selection</label>
+                    <select name="status" required="" id="id_status" class="py-2 px-3 rounded-lg border-2 border-purple-700 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:border-transparent">
+                        <option value="0">On Going</option>
+                        <option value="1">Done</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-1">
+                    <label for="id_assign_status" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Selection</label>
+                    <select name="assign_status" required="" id="id_assign_status" class="py-2 px-3 rounded-lg border-2 border-purple-700 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:border-transparent">
+                        <option value="0">Unasigned</option>
+
+                        <option value="1">Assigned</option>
+
+                    </select>
+                </div>
+            </div>
+
+    
+            <div class="grid grid-cols-1 mt-5 mx-7">
+                <label for="id_member" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Assign a member</label>
+                <select name="member" id="id_member" class="py-2 px-3 rounded-lg border-2 border-purple-700 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:border-transparent">
+                    
+                    {% for user in users %}
+                        <option value={{ user.id }}>{{ user.in_club_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+
+            <div class='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
+            <button class='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'><a href="{% url "task_listings" %}">Cancel</a></button>
+            <button type="submit" class='w-auto bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Create</button>
+            </div>
+
+        </div>
+    </div>
+</form>
+{% endblock content %}
