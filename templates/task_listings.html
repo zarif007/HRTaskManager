@@ -33,7 +33,12 @@
                 <h2 class="text-gray-900 text-lg title-font font-medium mb-2">{{ task.task_name }}</h2>
 
                 <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
-                    <p class="leading-relaxed text-base">Status: {{ task.status }}</p>
+                    {% if task.status %}
+                      <p class="leading-relaxed text-base text-green-500">Status: Done</p>
+                    {% else %}
+                      <p class="leading-relaxed text-base text-yellow-500">Status: On Going</p>
+                    {% endif %}
+
                     <p class="leading-relaxed text-base">Assigned Member: {{ task.member }}</p>
                 </div>
 

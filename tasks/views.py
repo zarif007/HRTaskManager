@@ -7,7 +7,7 @@ def home_page(request):
 
 
 def task_listings(request):
-    task = Task.objects.all()
+    task = Task.objects.all().order_by('last_date')
     users = User.objects.all()
 
     context = {
