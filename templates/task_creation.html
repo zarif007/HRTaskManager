@@ -30,7 +30,7 @@
 
             <div class="grid grid-cols-1 mt-5 mx-7">
                 <label for="id_description" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold" for="id_task_name">Description</label>
-                <input type="text" name="description" maxlength="200" id="id_description" class="py-8 px-3 rounded-lg border-2 border-purple-700 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:border-transparent" type="text" placeholder="Input 1" />
+                <input type="text" name="description" maxlength="1000" id="id_description" class="py-8 px-3 rounded-lg border-2 border-purple-700 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:border-transparent" type="text" placeholder="Input 1" />
             </div>
 
             <div class="grid grid-cols-1 mt-5 mx-7">
@@ -40,7 +40,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
                 <div class="grid grid-cols-1">
-                    <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Selection</label>
+                    <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Status</label>
                     <select name="status" required="" id="id_status" class="py-2 px-3 rounded-lg border-2 border-purple-700 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:border-transparent">
                         <option value="0">On Going</option>
                         <option value="1">Done</option>
@@ -48,9 +48,9 @@
                 </div>
 
                 <div class="grid grid-cols-1">
-                    <label for="id_assign_status" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Selection</label>
+                    <label for="id_assign_status" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Assingment Status</label>
                     <select name="assign_status" required="" id="id_assign_status" class="py-2 px-3 rounded-lg border-2 border-purple-700 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:border-transparent">
-                        <option value="0">Unasigned</option>
+                        <option value="0">Unassigned</option>
 
                         <option value="1">Assigned</option>
 
@@ -71,8 +71,8 @@
             
 
             <div class='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
-            <button class='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'><a href="{% url "task_listings" %}">Cancel</a></button>
-            <button type="submit" class='w-auto bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Create</button>
+                <button class='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'><a href="{% url "task_listings" %}">Cancel</a></button>
+                <button type="submit" class='w-auto bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Create</button>
             </div>
 
         </div>

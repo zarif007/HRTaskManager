@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser
 
 class Task(models.Model):
 
-    assingn_status_options = (
+    assign_status_options = (
         (0, 'Unasigned'),
         (1, 'Assigned'),
     )
@@ -19,10 +19,10 @@ class Task(models.Model):
     task_name = models.CharField(max_length=100)
     assign_date =  models.DateField(default=datetime.now, blank=True)
     last_date = models.DateField(default=datetime.now, blank=True)
-    description = models.CharField(max_length=200, blank=True)
+    description = models.CharField(max_length=1000, blank=True)
     url = models.URLField(max_length=100, null=True)
     status = models.BooleanField(choices=status_options, null=True)
-    assign_status = models.BooleanField(choices=assingn_status_options, null=True)
+    assign_status = models.BooleanField(choices=assign_status_options, null=True)
     member = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, blank=True)
     
     def __str__(self):

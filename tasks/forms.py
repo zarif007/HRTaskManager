@@ -19,6 +19,17 @@ class TaskModelForm(forms.ModelForm):
             'member',
         )
 
+class TaskApplyModelForm(forms.ModelForm):
+
+    class Meta:
+        model = Task
+
+        fields = (
+            'status',
+            'assign_status',
+            'member',
+        )
+
 
 class TaskForm(forms.Form):
     task_name = forms.CharField()
