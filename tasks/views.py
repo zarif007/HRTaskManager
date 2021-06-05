@@ -1,6 +1,9 @@
-from django.shortcuts import render, redirect
+from django.core.mail import send_mail
+from django.shortcuts import redirect, render
+
+from .forms import TaskApplyModelForm, TaskForm, TaskModelForm
 from .models import Task, User
-from .forms import TaskForm, TaskModelForm, TaskApplyModelForm
+
 
 def home_page(request):
     return render(request, 'home_page.html')
@@ -34,9 +37,18 @@ def task_creation(request):
     form = TaskModelForm()
     if request.method == 'POST':
         form = TaskModelForm(request.POST)
-
+        
         if form.is_valid():
-            print(form)
+            user_name = form.cleaned_data['member']
+            user = User.objects.get(in_club_name=user_name)
+
+            send_mail(
+                subject='TaskManager: You have been assinged to a new task',
+                message=f'You have assinged to {form.cleaned_data["task_name"]}',
+                from_email='djtester321@gmail.com', 
+                recipient_list=[user.email, 'zarifhuq007@gmail.com']
+            )
+            print(user.email)
             form.save()
             
             return redirect('task_listings')
@@ -93,7 +105,7 @@ def task_apply(request, pk):
     
     if request.method == 'POST':
         form = TaskApplyModelForm(request.POST, instance=task)
-        print(form)
+        
         if form.is_valid():
             print(form)
             form.save()
