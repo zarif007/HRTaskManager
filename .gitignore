@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 
-settings.py/
+tasker/settings.py/
 
 # C extensions
 *.so
