@@ -16,7 +16,7 @@ def task_listings(request):
 
     context = {
         'users' : users,
-        'tasks' : task
+        'tasks' : task,
     }
 
     return render(request, 'task_listings.html', context)
@@ -44,13 +44,12 @@ def task_creation(request):
 
             user_name = form.cleaned_data['member']
             user = User.objects.get(in_club_name=user_name)
-
             domain = get_current_site(request).domain
-            task_name = form.cleaned_data['task_name']
-            task_id = Task.objects.get(task_name=task_name).id
+            last_date = form.cleaned_data['last_date']
+            task_id = Task.objects.get(last_date=last_date).id
             task_url = f'http://{domain + "/task/" + str(task_id) }'
 
-            if(user.email != ''):
+            if(user.email != '' or form.cleaned_data['assign_status']):
                 send_mail(
                     subject='TaskManager: You have been assinged to a new task',
                     message=f'You have assinged to {form.cleaned_data["task_name"]}, click {task_url} to view',

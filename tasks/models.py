@@ -7,8 +7,8 @@ from django.contrib.auth.models import AbstractUser
 class Task(models.Model):
 
     assign_status_options = (
-        (0, 'Asigned'),
-        (1, 'Unassigned'),
+        (0, 'Unasigned'),
+        (1, 'Assigned'),
     )
 
     status_options = (
@@ -22,7 +22,7 @@ class Task(models.Model):
     description = models.CharField(max_length=1000, blank=True)
     url = models.URLField(max_length=100, null=True)
     status = models.BooleanField(choices=status_options, null=True)
-    assign_status = models.BooleanField(choices=assign_status_options, null=True, default=1)
+    assign_status = models.BooleanField(choices=assign_status_options, null=True, default=0)
     member = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, blank=True)
     
     def __str__(self):
