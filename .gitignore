@@ -3,6 +3,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+.env
+.env.example
+.env.local
+.env.staging
+
 
 tasker/settings.py/
 
