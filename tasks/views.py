@@ -1,3 +1,6 @@
+import random
+import string
+
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
@@ -5,7 +8,7 @@ from django.core.mail import send_mail
 from django.shortcuts import redirect, render
 from django.views import generic
 
-from .forms import TaskApplyModelForm, TaskModelForm, UserModelForm, CustomUserCreationForm
+from .forms import TaskApplyModelForm, TaskModelForm, CustomUserCreationForm
 from .models import Task, User
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -29,6 +32,7 @@ def task_listings(request):
 
 
 def task_detail(request, pk):
+
     task = Task.objects.get(id=pk)
 
     context = {
@@ -38,10 +42,37 @@ def task_detail(request, pk):
     return render(request, 'task_details.html', context)
 
 
+def task_history(request):
+
+    task = Task.objects.all().order_by('last_date')
+    users = User.objects.all()
+
+    context = {
+        'users' : users,
+        'tasks' : task,
+    }
+
+    return render(request, 'task_history.html', context)
+
+
+def generate_unique_code():
+    length = 6
+
+    while True:
+        code = ''.join(random.choices(string.ascii_uppercase, k=length))
+        if Task.objects.filter(code=code).count() == 0:
+            break
+
+    return code
+
+
 def task_creation(request):
     
     users = User.objects.all()
     form = TaskModelForm()
+    code = generate_unique_code()
+    print(code)
+
     if request.method == 'POST':
         form = TaskModelForm(request.POST)
         
@@ -51,8 +82,8 @@ def task_creation(request):
             user_name = form.cleaned_data['member']
             user = User.objects.get(in_club_name=user_name)
             domain = get_current_site(request).domain
-            last_date = form.cleaned_data['last_date']
-            task_id = Task.objects.get(last_date=last_date).id
+            code = form.cleaned_data['code']
+            task_id = Task.objects.get(code=code).id
             task_url = f'http://{domain + "/task/" + str(task_id) }'
 
             if(user.email != '' or form.cleaned_data['assign_status']):
@@ -69,7 +100,8 @@ def task_creation(request):
           
     context = {
         'forms': TaskModelForm(),
-        'users': users
+        'users': users,
+        'code': code
     }
 
     return render(request, 'task_creation.html', context)

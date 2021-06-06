@@ -1,8 +1,9 @@
 from django import forms
-from django.forms import fields, models
-from .models import Task, User
-from django.contrib.auth.forms import UserCreationForm, UsernameField
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm, UsernameField
+from django.forms import fields, models
+
+from .models import Task, User
 
 User = get_user_model()
 
@@ -23,27 +24,10 @@ class CustomUserCreationForm(UserCreationForm):
         field_classes = {'username': UsernameField}
 
 
-class UserModelForm(forms.ModelForm):
-
-    class Meta:
-        model = User
-
-        fields = (
-            'username',
-            'first_name',
-            'last_name',
-            'email',
-            'password',
-            'password2',
-            'department',
-            'designation',
-            'display_picture',
-        )
-
-
 class TaskModelForm(forms.ModelForm):
 
     last_date = forms.DateField(input_formats=['%d/%m/%Y'])
+
     class Meta:
         model = Task
 
@@ -54,8 +38,10 @@ class TaskModelForm(forms.ModelForm):
             'url',
             'status',
             'assign_status',
+            'code',
             'member',
         )
+
 
 class TaskApplyModelForm(forms.ModelForm):
 
