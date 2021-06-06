@@ -1,6 +1,26 @@
 from django import forms
 from django.forms import fields, models
 from .models import Task, User
+from django.contrib.auth.forms import UserCreationForm, UsernameField
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+class CustomUserCreationForm(UserCreationForm):
+
+    class Meta:
+        model = User 
+        fields = (
+            'username',
+            'in_club_name',
+            'first_name',
+            'last_name',
+            'email',
+            'department',
+            'designation',
+            'display_picture'
+        )
+        field_classes = {'username': UsernameField}
 
 
 class UserModelForm(forms.ModelForm):
