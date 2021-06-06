@@ -1,8 +1,12 @@
+from django.contrib import auth, messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.shortcuts import redirect, render
+from django.views import generic
 
-from .forms import TaskApplyModelForm, TaskForm, TaskModelForm
+from .forms import TaskApplyModelForm, TaskForm, TaskModelForm, UserModelForm
 from .models import Task, User
 
 
@@ -157,3 +161,21 @@ def task_apply(request, pk):
     }
 
     return render(request, 'task_apply.html', context)
+
+
+def SignUpView(request):
+
+    form = UserModelForm()
+    if request.method == 'POST':
+        form = UserModelForm(request.POST)
+        
+        if form.is_valid():
+            form.save()
+            
+            return redirect('login')
+          
+    context = {
+        'forms': UserModelForm(),
+    }
+
+    return render(request, 'registration/signup.html', context)

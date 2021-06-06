@@ -45,13 +45,15 @@ class User(AbstractUser):
     status_options = (
         (0, 'Free'),
         (1, 'Busy'),
-    )
+    )   
 
+    password2 = models.CharField(max_length=150, null=True)
     in_club_name = models.CharField(max_length=70)
     department = models.CharField(max_length=50, choices=department_options)
     designation = models.CharField(max_length=20, choices=designation_options)
     display_picture = models.ImageField(blank=True, null=True)
-    status = models.BooleanField(choices=status_options, default=1)
+    status = models.BooleanField(choices=status_options, default=1, null=True)
+    date_joined = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.in_club_name

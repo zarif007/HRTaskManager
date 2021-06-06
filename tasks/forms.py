@@ -1,6 +1,24 @@
 from django import forms
 from django.forms import fields, models
-from .models import Task
+from .models import Task, User
+
+
+class UserModelForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+
+        fields = (
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+            'password',
+            'password2',
+            'department',
+            'designation',
+            'display_picture',
+        )
 
 
 class TaskModelForm(forms.ModelForm):
