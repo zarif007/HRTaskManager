@@ -5,13 +5,13 @@ from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.views import generic
 
-from .forms import TaskApplyModelForm, TaskModelForm, CustomUserCreationForm
+from .forms import CustomUserCreationForm, TaskApplyModelForm, TaskModelForm
 from .models import Task, User
-from django.urls import reverse
-from django.contrib.auth.decorators import login_required
 
 
 def home_page(request):
@@ -20,12 +20,18 @@ def home_page(request):
 
 @login_required(login_url='/signin')
 def task_listings(request):
-    task = Task.objects.all().order_by('last_date')
+    
+    task = Task.objects.all().order_by('last_date').filter(assign_status=1)
+    av_task = Task.objects.all().order_by('last_date').filter(assign_status=0)
+    paginator = Paginator(task, 3)
+    page = request.GET.get('page')
+    paged_listings = paginator.get_page(page)
     users = User.objects.all()
 
     context = {
         'users' : users,
-        'tasks' : task,
+        'tasks' : paged_listings,
+        'av_tasks' : av_task
     }
 
     return render(request, 'task_listings.html', context)

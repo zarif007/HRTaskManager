@@ -12,6 +12,8 @@
         <div class="w-16 h-1 rounded-full bg-indigo-500 inline-flex"></div>
       </div>
     </div>
+
+    
     
     <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
         <button class="flex mx-auto mt-20 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"><a href="{% url 'task_creation' %}">Add a Task</a></button>
@@ -61,7 +63,53 @@
         </div>
       {% endif %}
     {% endfor %}
+
+
+    <div class="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-indigo-200 sm:flex-row flex-col">
+        <div>
+          {% if tasks.has_other_pages %}
+            <ul class="flex pagination">
+              {% if tasks.has_previous %}
+                <li class="page-item mx-1 px-3 py-2 bg-indigo-200 text-indigo-700 hover:bg-indigo-700 hover:text-indigo-200 rounded-lg">
+                  <a href="?page={{tasks.previous_page_number}}" class="page-link flex items-center font-bold">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+                      <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z"/>
+                    </svg>
+                  </a>
+                </li>
+              {% else %}
+                <li class="page-item mx-1 px-3 py-2 bg-indigo-200 text-indigo-700 hover:bg-indigo-700 hover:text-indigo-200 rounded-lg disabled">
+                  <a class="page-link flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+                      <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z"/>
+                    </svg>
+                  </a>
+                </li>
+              {% endif %}
+              
+              {% if tasks.has_next %}
+                <li class="page-item mx-1 px-3 py-2 bg-indigo-200 text-indigo-700 hover:bg-indigo-700 hover:text-indigo-200 rounded-lg">
+                  <a href="?page={{tasks.next_page_number}}" class="page-link flex items-center font-bold">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
+                      <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1z"/>
+                    </svg>
+                  </a>
+                </li>
+              {% else %}
+                <li class="page-item mx-1 px-3 py-2 bg-indigo-200 text-indigo-700 hover:bg-indigo-700 hover:text-indigo-200 rounded-lg disabled">
+                  <a class="page-link flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
+                      <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1z"/>
+                    </svg>
+                  </a>
+                </li>
+              {% endif %}
+            </ul>
+          {% endif %}
+        </div>
+      </div>
   </div>
+
 </section>
 
 
@@ -73,7 +121,7 @@
       <h2 class="sm:text-3xl text-gray-900 tracking-widest font-medium title-font mb-1">Assign yourself a task and get HRPoints</h2>
     </div>
     <div class="flex flex-wrap -m-4">
-      {% for task in tasks %}
+      {% for task in av_tasks %}
         {% if task.assign_status == 0 and task.status != 1 %}
           <div class="p-4 md:w-1/3">
             <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
