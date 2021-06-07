@@ -12,11 +12,6 @@
         <div class="w-16 h-1 rounded-full bg-indigo-500 inline-flex"></div>
       </div>
     </div>
-    
-    <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
-        <button class="flex mx-auto mt-20 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"><a href="{% url 'task_creation' %}">Add a Task</a></button>
-    </div>
-    <br> <br>
 
     {% for task in tasks %}
             <div class="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">

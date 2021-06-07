@@ -97,9 +97,16 @@
     <div class='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5' style="padding-top: 40px">
         {% if task.assign_status == False %}
             <button class='w-auto bg-green-500 hover:bg-green-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'><a href="{% url 'task_apply' task.pk %}">Apply</a></button>
+        {% else %}
+            {% if request.user.id == task.member.id %}
+              <button class='w-auto bg-green-500 hover:bg-green-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'><a href="{% url 'task_apply' task.pk %}">Done</a></button>
+            {% endif %}
         {% endif%}
         <button class='w-auto bg-indigo-500 hover:bg-indigo-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'><a href="{% url 'task_update' task.pk %}">Update</a></button>
-        <button class='w-auto bg-red-500 hover:bg-red-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'><a href="{% url 'task_delete' task.pk %}">delete</a></button>
+
+        {% if request.user.is_superuser %}
+          <button class='w-auto bg-red-500 hover:bg-red-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'><a href="{% url 'task_delete' task.pk %}">delete</a></button>
+        {% endif %}
     </div>
   </div>
 </section>

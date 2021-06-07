@@ -138,9 +138,7 @@ def task_update(request, pk):
             if form.cleaned_data['assign_status'] or prev_task_member != user_name:
                 
                 user = User.objects.get(in_club_name=user_name)
-                user.hr_points = user.hr_points + 50
-                user.save()
-                print(user.hr_points)
+
                 domain = get_current_site(request).domain
                 task_id = Task.objects.get(code=task.code).id
                 task_url = f'http://{domain + "/task/" + str(task_id) }'
@@ -233,3 +231,22 @@ def user_profile(request, pk):
         'len_of_task' : len(task),
     }
     return render(request, 'user/user_profile.html', context)
+
+
+def user_rank(request):
+
+    user = User.objects.all().order_by('-hr_points')[:3]
+
+
+
+    context = {
+        'user' : user,
+    }
+
+    return render(request, 'rank.html', context)
+
+
+def task_done(request, pk):
+
+    task = Task.objects.get(id=pk)
+

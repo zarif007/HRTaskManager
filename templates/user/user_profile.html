@@ -6,12 +6,25 @@
 
 <section class="text-gray-600 body-font">
   <div class="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
+    {% if request.user.id == user.id %}
+        <h1 class="sm:text-3xl text-indigo-500 text-2xl font-medium title-font">Your Profile</h1>
+    {% else %}
+        <h1 class="sm:text-3xl text-indigo-500 text-2xl font-medium title-font">{{ user.first_name }}'s Profile</h1>
+    {% endif %}
+    
+    <div class="flex mt-6 justify-center">
+        <div class="w-16 h-1 rounded-full bg-indigo-500 inline-flex"></div>
+    </div>
+    
     <img class="lg:w-2/6 md:w-3/6 w-5/6 mb-10 object-cover object-center rounded" alt="hero" src="https://dummyimage.com/720x600">
     <div class="text-center lg:w-2/3 w-full">
       <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">{{ user.first_name }} {{ user.last_name }}</h1>
       <p class="mb-8 leading-relaxed">In Club Name: {{ user.in_club_name }}</p>
       <p class="mb-8 leading-relaxed">HR points: {{ user.hr_points }}</p>
-      
+
+        {% if request.user.id == user.id %}
+            <button class="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Edit your profile</button>
+        {% endif %}
 
       <section class="text-gray-600 body-font">
         <div class="container px-5 py-24 mx-auto">
