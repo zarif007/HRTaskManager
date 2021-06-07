@@ -13,9 +13,11 @@ urlpatterns = [
     path('signout/', LogoutView.as_view(), name='signout'),
     path('signup/', views.SignUpView.as_view(), name='signup'),
     path('create/', views.task_creation, name='task_creation'),
+    path('member_list/', views.member_list, name='member_list'),
     path('task/<int:pk>/', views.task_detail, name='task_detail'),
     path('update/<int:pk>/', views.task_update, name='task_update'),
     path('delete/<int:pk>/', views.task_delete, name='task_delete'),
+    path('task_done/<int:pk>/', views.task_done, name='task_done'),
     path('apply/<int:pk>/', views.task_apply, name='task_apply'),
     path('user/<int:pk>/', views.user_profile, name='user_profile'),
 ]

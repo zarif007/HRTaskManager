@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.http.request import HttpRequest
+from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import generic
@@ -90,8 +92,7 @@ def task_creation(request):
             if form.cleaned_data['assign_status']:
                 user_name = form.cleaned_data['member']
                 user = User.objects.get(in_club_name=user_name)
-                user.hr_points = user.hr_points + 50
-                user.save()
+                
                 domain = get_current_site(request).domain
                 code = form.cleaned_data['code']
                 task_id = Task.objects.get(code=code).id
@@ -237,8 +238,6 @@ def user_rank(request):
 
     user = User.objects.all().order_by('-hr_points')[:3]
 
-
-
     context = {
         'user' : user,
     }
@@ -246,7 +245,35 @@ def user_rank(request):
     return render(request, 'rank.html', context)
 
 
+
 def task_done(request, pk):
 
     task = Task.objects.get(id=pk)
 
+    user = request.user
+    user.hr_points = user.hr_points + 50
+    user.save()
+
+    task.status = 1
+    task.save()
+
+    return redirect('task_detail', task.id)
+
+
+def member_list(request):
+
+    Directoruser = User.objects.filter(designation="Director")
+    AssistantDirectororuser = User.objects.filter(designation="Assistant Director")
+    SeniorExecutiveuser = User.objects.filter(designation="Senior Executive")
+    Executiveuser = User.objects.filter(designation="Executive")
+    GeneralMemberuser = User.objects.filter(designation="General Member")
+
+    context = {
+        "Directoruser" : Directoruser,
+        "AssistantDirectororuser" : AssistantDirectororuser,
+        "SeniorExecutiveuser" : SeniorExecutiveuser,
+        "Executiveuser" : Executiveuser,
+        "GeneralMemberuser" : GeneralMemberuser,
+    }
+
+    return render(request, 'member_list.html', context)
