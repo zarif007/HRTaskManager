@@ -23,7 +23,7 @@ def task_listings(request):
     
     task = Task.objects.all().order_by('last_date').filter(assign_status=1)
     av_task = Task.objects.all().order_by('last_date').filter(assign_status=0)
-    paginator = Paginator(task, 3)
+    paginator = Paginator(task, 6)
     page = request.GET.get('page')
     paged_listings = paginator.get_page(page)
     users = User.objects.all()
@@ -52,10 +52,13 @@ def task_history(request):
 
     task = Task.objects.all().order_by('last_date')
     users = User.objects.all()
+    paginator = Paginator(task, 10)
+    page = request.GET.get('page')
+    paged_listings = paginator.get_page(page)
 
     context = {
         'users' : users,
-        'tasks' : task,
+        'tasks' : paged_listings,
     }
 
     return render(request, 'task_history.html', context)
@@ -77,7 +80,6 @@ def task_creation(request):
     users = User.objects.all()
     form = TaskModelForm()
     code = generate_unique_code()
-    print(code)
 
     if request.method == 'POST':
         form = TaskModelForm(request.POST)
@@ -85,20 +87,23 @@ def task_creation(request):
         if form.is_valid():
             form.save()
 
-            user_name = form.cleaned_data['member']
-            user = User.objects.get(in_club_name=user_name)
-            domain = get_current_site(request).domain
-            code = form.cleaned_data['code']
-            task_id = Task.objects.get(code=code).id
-            task_url = f'http://{domain + "/task/" + str(task_id) }'
+            if form.cleaned_data['assign_status']:
+                user_name = form.cleaned_data['member']
+                user = User.objects.get(in_club_name=user_name)
+                user.hr_points = user.hr_points + 50
+                user.save()
+                domain = get_current_site(request).domain
+                code = form.cleaned_data['code']
+                task_id = Task.objects.get(code=code).id
+                task_url = f'http://{domain + "/task/" + str(task_id) }'
 
-            if(user.email != '' or form.cleaned_data['assign_status']):
-                send_mail(
-                    subject='TaskManager: You have been assinged to a new task',
-                    message=f'You have assinged to {form.cleaned_data["task_name"]}, click {task_url} to view',
-                    from_email='djtester321@gmail.com', 
-                    recipient_list=[user.email, 'zarifhuq007@gmail.com']
-                )
+                if(user.email != '' or form.cleaned_data['assign_status']):
+                    send_mail(
+                        subject='TaskManager: You have been assinged to a new task',
+                        message=f'You have assinged to {form.cleaned_data["task_name"]}, click {task_url} to view',
+                        from_email='djtester321@gmail.com', 
+                        recipient_list=[user.email, 'zarifhuq007@gmail.com']
+                    )
             
             
             
@@ -130,19 +135,23 @@ def task_update(request, pk):
             form.save()
 
             user_name = form.cleaned_data['member']
-            user = User.objects.get(in_club_name=user_name)
+            if form.cleaned_data['assign_status'] or prev_task_member != user_name:
+                
+                user = User.objects.get(in_club_name=user_name)
+                user.hr_points = user.hr_points + 50
+                user.save()
+                print(user.hr_points)
+                domain = get_current_site(request).domain
+                task_id = Task.objects.get(code=task.code).id
+                task_url = f'http://{domain + "/task/" + str(task_id) }'
 
-            domain = get_current_site(request).domain
-            task_id = Task.objects.get(task_name=task.task_name).id
-            task_url = f'http://{domain + "/task/" + str(task_id) }'
-
-            if(user.email != '' or prev_task_member != user_name):
-                send_mail(
-                    subject='TaskManager: You have been assinged to a new task',
-                    message=f'You have assinged to {form.cleaned_data["task_name"]}, click {task_url} to view',
-                    from_email='djtester321@gmail.com', 
-                    recipient_list=[user.email, 'zarifhuq007@gmail.com']
-                )
+                if(user.email != '' or prev_task_member != user_name):
+                    send_mail(
+                        subject='TaskManager: You have been assinged to a new task',
+                        message=f'You have assinged to {form.cleaned_data["task_name"]}, click {task_url} to view',
+                        from_email='djtester321@gmail.com', 
+                        recipient_list=[user.email, 'zarifhuq007@gmail.com']
+                    )
                 
             return redirect('task_detail', task.id)
 
@@ -177,20 +186,21 @@ def task_apply(request, pk):
         if form.is_valid():
             form.save()
 
-            user_name = form.cleaned_data['member']
-            user = User.objects.get(in_club_name=user_name)
+            if form.cleaned_data['assign_status']:
+                user_name = form.cleaned_data['member']
+                user = User.objects.get(in_club_name=user_name)
 
-            domain = get_current_site(request).domain
-            task_id = Task.objects.get(task_name=task.task_name).id
-            task_url = f'http://{domain + "/task/" + str(task_id) }'
-            print(task_id)
-            if(user.email != ''):
-                send_mail(
-                    subject='TaskManager: You have been assinged to a new task',
-                    message=f'You have assinged to {task.task_name}, click {task_url} to view',
-                    from_email='djtester321@gmail.com', 
-                    recipient_list=[user.email, 'zarifhuq007@gmail.com']
-                )
+                domain = get_current_site(request).domain
+                task_id = Task.objects.get(code=task.code).id
+                task_url = f'http://{domain + "/task/" + str(task_id) }'
+                print(task_id)
+                if(user.email != ''):
+                    send_mail(
+                        subject='TaskManager: You have been assinged to a new task',
+                        message=f'You have applied for {task.task_name}, click {task_url} to view',
+                        from_email='djtester321@gmail.com', 
+                        recipient_list=[user.email, 'zarifhuq007@gmail.com']
+                    )
  
             return redirect('task_detail', task.id)
 
@@ -209,3 +219,17 @@ class SignUpView(generic.CreateView):
 
     def get_success_url(self):
         return reverse('task_listings')
+
+
+def user_profile(request, pk):
+
+    user = User.objects.get(id=pk)
+
+    task = Task.objects.filter(member=pk)
+
+    context = {
+        'user'  : user,
+        'tasks' : task,
+        'len_of_task' : len(task),
+    }
+    return render(request, 'user/user_profile.html', context)

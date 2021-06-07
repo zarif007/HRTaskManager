@@ -41,6 +41,11 @@
                 <input type="url" name="url" maxlength="100" required="" id="id_url" class="py-2 px-3 rounded-lg border-2 border-purple-700 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:border-transparent" type="text" placeholder="Input 3" value="{{ task.url }}"/>
             </div>
 
+            <div class="grid grid-cols-1 mt-5 mx-7">
+                <label for="id_code" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Task Code</label>
+                <input type="text" name="code" maxlength="8" id="id_code" class="py-2 px-3 rounded-lg border-2 border-purple-700 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:border-transparent" type="text" placeholder="Input 3" value="{{ task.code }}"/>
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
                 <div class="grid grid-cols-1">
                     <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Status</label>

@@ -55,6 +55,7 @@ class User(AbstractUser):
     display_picture = models.ImageField(blank=True, null=True)
     status = models.BooleanField(choices=status_options, default=1, null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
+    hr_points = models.IntegerField(default=0, null=True)
 
     def __str__(self):
         return self.in_club_name
