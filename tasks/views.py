@@ -39,6 +39,7 @@ def task_listings(request):
     return render(request, 'task_listings.html', context)
 
 
+@login_required(login_url='/signin')
 def task_detail(request, pk):
 
     task = Task.objects.get(id=pk)
@@ -50,6 +51,7 @@ def task_detail(request, pk):
     return render(request, 'task_details.html', context)
 
 
+@login_required(login_url='/signin')
 def task_history(request):
 
     task = Task.objects.all().order_by('last_date')
@@ -77,6 +79,7 @@ def generate_unique_code():
     return code
 
 
+@login_required(login_url='/signin')
 def task_creation(request):
     
     users = User.objects.all()
@@ -119,6 +122,7 @@ def task_creation(request):
     return render(request, 'task_creation.html', context)
 
 
+@login_required(login_url='/signin')
 def task_update(request, pk):
 
     task = Task.objects.get(id=pk)
@@ -163,6 +167,7 @@ def task_update(request, pk):
     return render(request, 'task_update.html', context)
 
 
+@login_required(login_url='/signin')
 def task_delete(request, pk):
     task = Task.objects.get(id=pk)
     task.delete()
@@ -220,6 +225,7 @@ class SignUpView(generic.CreateView):
         return reverse('task_listings')
 
 
+@login_required(login_url='/signin')
 def user_profile(request, pk):
 
     user = User.objects.get(id=pk)
@@ -234,6 +240,7 @@ def user_profile(request, pk):
     return render(request, 'user/user_profile.html', context)
 
 
+@login_required(login_url='/signin')
 def user_rank(request):
 
     user = User.objects.all().order_by('-hr_points')[:3]
@@ -245,7 +252,7 @@ def user_rank(request):
     return render(request, 'rank.html', context)
 
 
-
+@login_required(login_url='/signin')
 def task_done(request, pk):
 
     task = Task.objects.get(id=pk)
@@ -260,6 +267,7 @@ def task_done(request, pk):
     return redirect('task_detail', task.id)
 
 
+@login_required(login_url='/signin')
 def member_list(request):
 
     Directoruser = User.objects.filter(designation="Director")
