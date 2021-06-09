@@ -1,17 +1,20 @@
 import random
 import string
 import secrets
+import os
 
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
+from django.db.models.query import QuerySet
 from django.http import request
 
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import generic
+from django.views.generic.edit import UpdateView
 
 from .forms import CustomUserCreationForm, TaskApplyModelForm, TaskModelForm
 from .models import Task, User
@@ -243,6 +246,7 @@ def task_apply(request, pk):
     return render(request, 'task_apply.html', context)
 
 
+
 class SignUpView(generic.CreateView):
     template_name = 'registration/signup.html'
     form_class = CustomUserCreationForm
@@ -313,13 +317,12 @@ def member_list(request):
     return render(request, 'member_list.html', context)
 
 
+@login_required(login_url='/signin')
 def inviteView(request):
 
     alphabet = string.ascii_letters + string.digits
     password = ''.join(secrets.choice(alphabet) for i in range(10))
     form = CustomUserCreationForm()
-
-    print(password)
 
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -349,3 +352,17 @@ def inviteView(request):
     return render(request, 'registration/invite.html', conext)
 
 
+    
+def edit_profile(request, pk):
+
+    user = User.objects.get(id=pk)
+    form = CustomUserCreationForm(request.POST, request.FILES, instance = user)
+    if form.is_valid():
+        form.save()
+        return redirect('task_listings')
+
+    context = {
+        'user' : user,
+    }
+    
+    return render(request, 'user/edit_profile.html', context)

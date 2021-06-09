@@ -27,7 +27,7 @@
       <p class="mb-8 leading-relaxed">HR points: {{ user.hr_points }}</p>
 
         {% if request.user.id == user.id %}
-            <button class="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Edit your profile</button>
+            <button class="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"><a href="{% url 'edit_profile' user.id %}">Edit your profile</a></button>
         {% endif %}
 
       <section class="text-gray-600 body-font">

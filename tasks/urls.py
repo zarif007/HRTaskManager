@@ -22,4 +22,5 @@ urlpatterns = [
     path('task_done/<int:pk>/', views.task_done, name='task_done'),
     path('apply/<int:pk>/', views.task_apply, name='task_apply'),
     path('user/<int:pk>/', views.user_profile, name='user_profile'),
+    path('edit/<int:pk>/', views.edit_profile, name='edit_profile'),
 ]
