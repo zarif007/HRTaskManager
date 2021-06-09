@@ -230,7 +230,7 @@ def user_profile(request, pk):
 
     user = User.objects.get(id=pk)
 
-    task = Task.objects.filter(member=pk)
+    task = Task.objects.filter(member=pk).filter(status=1)
 
     context = {
         'user'  : user,
