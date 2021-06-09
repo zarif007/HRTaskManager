@@ -1,19 +1,21 @@
 import random
 import string
+import secrets
 
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.http.request import HttpRequest
-from django.http.response import HttpResponse
+from django.core.paginator import Paginator
+from django.http import request
+
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import generic
 
 from .forms import CustomUserCreationForm, TaskApplyModelForm, TaskModelForm
 from .models import Task, User
+from tasks import forms
 
 
 def home_page(request):
@@ -29,14 +31,35 @@ def task_listings(request):
     page = request.GET.get('page')
     paged_listings = paginator.get_page(page)
     users = User.objects.all()
+    title = "Assigned Tasks"
 
     context = {
         'users' : users,
         'tasks' : paged_listings,
-        'av_tasks' : av_task
+        'av_tasks' : av_task,
+        'title' : title,
     }
 
     return render(request, 'task_listings.html', context)
+
+
+def own_task_listings(request):
+
+    user = User.objects.get(id=request.user.id)
+    task = Task.objects.all().order_by('last_date').filter(assign_status=1).filter(member=user)
+    av_task = Task.objects.all().order_by('last_date').filter(assign_status=0)
+    title = "Your Assigned Tasks"
+
+    context = {
+        'users' : user,
+        'tasks' : task,
+        'av_tasks' : av_task,
+        'title' : title,
+    }
+
+    return render(request, 'task_listings.html', context)
+
+
 
 
 @login_required(login_url='/signin')
@@ -179,6 +202,9 @@ def task_apply(request, pk):
 
     task = Task.objects.get(id=pk)
 
+    if task.assign_status:
+        return redirect('task_listings')
+
     users = User.objects.all()
 
     form = TaskApplyModelForm(instance=task)
@@ -285,3 +311,41 @@ def member_list(request):
     }
 
     return render(request, 'member_list.html', context)
+
+
+def inviteView(request):
+
+    alphabet = string.ascii_letters + string.digits
+    password = ''.join(secrets.choice(alphabet) for i in range(10))
+    form = CustomUserCreationForm()
+
+    print(password)
+
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        
+        if form.is_valid():
+
+            form.save()
+
+            email = form.cleaned_data['email']
+            domain = get_current_site(request).domain
+            login_url = f'http://{domain + "/signin/"}'
+
+            send_mail(
+                        subject='TaskManager: You have been Invited to HRTaskManager',
+                        message=f"""Your Username : { form.cleaned_data['username'] }
+                        Temporary Password : { form.cleaned_data['password1'] } Click this link { login_url } After login, change your password""",
+                        from_email='djtester321@gmail.com', 
+                        recipient_list=[email, 'zarifhuq786@gmail.com']
+                    )
+
+            return redirect('task_listings')
+
+    conext = {
+        'password' : password,
+    }
+
+    return render(request, 'registration/invite.html', conext)
+
+

@@ -35,7 +35,7 @@
                         {% endif %}
                         
                         {% if task.assign_status %}
-                        <span class="title-font font-medium">Assigned to: {{ task.member }}</span>
+                        <span class="title-font font-medium">Assigned to: <a href="{% url 'user_profile' task.member.id %}">{{ task.member }}</a></span>
                         {% else %}
                             <span class="title-font font-medium">Unassigned</span>
                         {% endif %}

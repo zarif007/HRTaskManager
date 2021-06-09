@@ -49,13 +49,15 @@ class User(AbstractUser):
     )   
 
     password2 = models.CharField(max_length=150, null=True)
-    in_club_name = models.CharField(max_length=70)
-    department = models.CharField(max_length=50, choices=department_options)
-    designation = models.CharField(max_length=20, choices=designation_options)
+    in_club_name = models.CharField(max_length=70, blank=True)
+    department = models.CharField(max_length=50, choices=department_options, blank=True)
+    designation = models.CharField(max_length=20, choices=designation_options, blank=True)
     display_picture = models.ImageField(blank=True, null=True)
-    status = models.BooleanField(choices=status_options, default=1, null=True)
+    status = models.BooleanField(choices=status_options, default=1, null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
-    hr_points = models.IntegerField(default=0, null=True)
+    hr_points = models.IntegerField(default=0, null=True, blank=True)
 
     def __str__(self):
-        return self.in_club_name
+        return self.username + '( ' + self.in_club_name + ')'
+
+

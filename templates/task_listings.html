@@ -7,16 +7,30 @@
   <div class="container px-5 py-24 mx-auto">
     
     <div class="text-center mb-20">
-      <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">Assigned Tasks</h1>
+      <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">{{ title }}</h1>
       <div class="flex mt-6 justify-center">
         <div class="w-16 h-1 rounded-full bg-indigo-500 inline-flex"></div>
       </div>
     </div>
 
+
     
-    
+
     <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
-        <button class="flex mx-auto mt-20 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"><a href="{% url 'task_creation' %}">Add a Task</a></button>
+        <button class="flex mx-auto mt-20 font-semibold text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"><a href="{% url 'task_creation' %}">Add a Task</a></button>
+        
+        <div class="p-10">
+          <div class="dropdown inline-block relative">
+            <button class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded inline-flex items-center">
+              <span class="mr-1">Sort On Going tasks by</span>
+              <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>
+            </button>
+            <ul class="dropdown-menu absolute hidden text-white pt-1">
+              <li class=""><a class="rounded-t bg-indigo-500 hover:bg-indigo-600 py-2 px-4 block whitespace-no-wrap" href="{% url 'task_listings' %}">All On Going Tasks</a></li>
+              <li class=""><a class="bg-indigo-500 hover:bg-indigo-600 py-2 px-4 block whitespace-no-wrap" href="{% url 'own_task_listings' %}">Your On Going Tasks</a></li>
+            </ul>
+          </div>
+        </div>
     </div>
     <br> <br>
 
