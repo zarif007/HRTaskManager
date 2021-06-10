@@ -1,24 +1,26 @@
-import random
-import string
-import secrets
 import os
+import random
+import secrets
+import string
 
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.db.models.query import QuerySet
 from django.http import request
-
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import generic
 from django.views.generic.edit import UpdateView
 
+from tasks import forms
+
 from .forms import CustomUserCreationForm, TaskApplyModelForm, TaskModelForm
 from .models import Task, User
-from tasks import forms
 
 
 def home_page(request):
@@ -253,6 +255,12 @@ class SignUpView(generic.CreateView):
 
     def get_success_url(self):
         return reverse('task_listings')
+
+
+class LoginFormView(SuccessMessageMixin, LoginView):
+    template_name = 'registration/login.html'
+    success_url = '/tasks/'
+    success_message = "You were successfully logged in."
 
 
 @login_required(login_url='/signin')

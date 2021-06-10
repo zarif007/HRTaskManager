@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+
 import env_file
+from django.contrib.messages import constants as messages
+
 env_file.load('.env')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -122,6 +125,9 @@ USE_TZ = True
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

@@ -23,28 +23,28 @@
 
         <div class="grid grid-cols-1 mt-5 mx-7">
             <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold" for="id_username">UserName</label>
-            <input value="{{ user.username }}" type="text" name="username" maxlength="150" autocapitalize="none" autocomplete="username" autofocus=""  id="id_username" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Input 1"/>
+            <input value="{{ request.user.username }}" type="text" name="username" maxlength="150" autocapitalize="none" autocomplete="username" autofocus=""  id="id_username" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Input 1"/>
         </div>
 
         <div class="grid grid-cols-1 mt-5 mx-7">
             <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold" for="id_in_club_name">In Club Name</label>
-            <input value="{{ user.in_club_name }}" type="text" name="in_club_name" maxlength="70"  id="id_in_club_name" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Input 1" />
+            <input value="{{ request.user.in_club_name }}" type="text" name="in_club_name" maxlength="70"  id="id_in_club_name" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Input 1" />
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
         <div class="grid grid-cols-1">
             <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold" for="id_first_name">First Name</label>
-            <input value="{{ user.first_name }}" type="text" name="first_name" maxlength="150" id="id_first_name"class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Input 2" />
+            <input value="{{ request.user.first_name }}" type="text" name="first_name" maxlength="150" id="id_first_name"class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Input 2" />
         </div>
         <div class="grid grid-cols-1">
             <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold" for="id_last_name">Last Name</label>
-            <input value="{{ user.last_name }}" type="text" name="last_name" maxlength="150" id="id_last_name"class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Input 3" />
+            <input value="{{ request.user.last_name }}" type="text" name="last_name" maxlength="150" id="id_last_name"class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Input 3" />
         </div>
         </div>
 
         <div class="grid grid-cols-1 mt-5 mx-7">
             <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold" for="id_email">Email</label>
-            <input value="{{ user.email }}" type="email" name="email" maxlength="254" id="id_email" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Input 1" />
+            <input value="{{ request.user.email }}" type="email" name="email" maxlength="254" id="id_email" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" type="text" placeholder="Input 1" />
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7"> 
@@ -87,7 +87,7 @@
                     <p class='lowercase text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider'>Select a photo</p>
                     </div>
                 {% if user.display_picture %}
-                    <input value="{{ user.display_picture.url }}" type="file" name="display_picture" accept="image/*" id="id_display_picture" lass="hidden" />
+                    <input value="{{ request.user.display_picture.url }}" type="file" name="display_picture" accept="image/*" id="id_display_picture" lass="hidden" />
                 {% else %}
                     <input type="file" name="display_picture" accept="image/*" id="id_display_picture" lass="hidden" />
                 {% endif %}
