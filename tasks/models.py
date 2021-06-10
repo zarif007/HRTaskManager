@@ -48,7 +48,6 @@ class User(AbstractUser):
         (1, 'Busy'),
     )   
 
-    password2 = models.CharField(max_length=150, null=True)
     in_club_name = models.CharField(max_length=70, blank=True)
     department = models.CharField(max_length=50, choices=department_options, blank=True)
     designation = models.CharField(max_length=20, choices=designation_options, blank=True)
