@@ -134,7 +134,7 @@ def task_creation(request):
                         subject='TaskManager: You have been assinged to a new task',
                         message=f'You have assinged to {form.cleaned_data["task_name"]}, click {task_url} to view',
                         from_email='djtester321@gmail.com', 
-                        recipient_list=[user.email, 'zarifhuq007@gmail.com']
+                        recipient_list=[user.email, 'zarifhuq786@gmail.com']
                     )
             
             
@@ -181,7 +181,7 @@ def task_update(request, pk):
                         subject='TaskManager: You have been assinged to a new task',
                         message=f'You have assinged to {form.cleaned_data["task_name"]}, click {task_url} to view',
                         from_email='djtester321@gmail.com', 
-                        recipient_list=[user.email, 'zarifhuq007@gmail.com']
+                        recipient_list=[user.email, 'zarifhuq786@gmail.com']
                     )
                 
             return redirect('task_detail', task.id)
@@ -234,7 +234,7 @@ def task_apply(request, pk):
                         subject='TaskManager: You have been assinged to a new task',
                         message=f'You have applied for {task.task_name}, click {task_url} to view',
                         from_email='djtester321@gmail.com', 
-                        recipient_list=[user.email, 'zarifhuq007@gmail.com']
+                        recipient_list=[user.email, 'zarifhuq786@gmail.com']
                     )
  
             return redirect('task_detail', task.id)
