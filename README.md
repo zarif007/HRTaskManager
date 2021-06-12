@@ -38,6 +38,7 @@ EMAIL_HOST_PASSWORD = Your Mail Password
 SECRET_KEY = 'Djago app secret key (get this from settings.py)'
 DEBUG = True
 
+
 #DataBase credentials
 export NAME = database name
 export USER = postgres
