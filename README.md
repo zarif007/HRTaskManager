@@ -1,3 +1,13 @@
+**Activating Virtual Environment**
+
+```pip install virtualenv```
+
+```virtualenv venv```
+
+**Activate virtual environment**
+
+```venv/scripts/activate```
+
 **Installing Dependencies**
 
 ```pip install requirements.txt```
