@@ -14,7 +14,7 @@
 
 **Starting Django Project**
 
-```django-admin startproject tasker```
+```django-admin startproject tasker .```
 
 **Starting Django App**
 
