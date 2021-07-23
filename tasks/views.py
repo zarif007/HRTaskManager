@@ -1,7 +1,10 @@
+from datetime import datetime
+from django.utils.safestring import mark_safe
 import os
 import random
 import secrets
 import string
+from tasks.utils import Calendar
 
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
@@ -20,11 +23,14 @@ from django.views.generic.edit import UpdateView
 from tasks import forms
 
 from .forms import CustomUserCreationForm, TaskApplyModelForm, TaskModelForm
-from .models import Task, User
+from .models import Event, Task, User
 
 
 def home_page(request):
     return render(request, 'home_page.html')
+
+def calender_listings(request):
+    return render(request, 'calender.html')
 
 
 @login_required(login_url='/signin')
@@ -137,7 +143,7 @@ def task_creation(request):
                         recipient_list=[user.email, 'zarifhuq786@gmail.com']
                     )
             
-            
+            #messages.success(request, 'Acoount created Successfully!! Check your mail and verify your account')
             
             return redirect('task_listings')
           
@@ -262,6 +268,10 @@ class LoginFormView(SuccessMessageMixin, LoginView):
     success_url = '/tasks/'
     success_message = "You were successfully logged in."
 
+    def get_success_url(self):
+    
+        messages.success(self.request, 'Yes it works!')
+
 
 @login_required(login_url='/signin')
 def user_profile(request, pk):
@@ -374,3 +384,28 @@ def edit_profile(request, pk):
     }
     
     return render(request, 'user/edit_profile.html', context)
+
+
+class CalendarView(generic.ListView):
+    model = Event
+    template_name = 'calender.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # use today's date for the calendar
+        d = get_date(self.request.GET.get('day', None))
+
+        # Instantiate our calendar class with today's year and date
+        cal = Calendar(d.year, d.month)
+
+        # Call the formatmonth method, which returns our calendar as a table
+        html_cal = cal.formatmonth(withyear=True)
+        context['calendar'] = mark_safe(html_cal)
+        return context
+
+def get_date(req_day):
+    if req_day:
+        year, month = (int(x) for x in req_day.split('-'))
+        return datetime.date(year, month, day=1)
+    return datetime.today()

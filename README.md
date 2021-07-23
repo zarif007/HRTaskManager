@@ -1,29 +1,24 @@
 **Activating Virtual Environment**
 
-```pip install virtualenv```
+`pip install virtualenv`
 
-```virtualenv venv```
-
+`virtualenv venv`
 
 **Activate virtual environment**
 
-```venv/scripts/activate```
-
+`venv\scripts\activate`
 
 **Installing Dependencies**
 
-```pip install requirements.txt```
-
+`pip install requirements.txt`
 
 **Starting Django Project**
 
-```django-admin startproject tasker .```
-
+`django-admin startproject tasker .`
 
 **Starting Django App**
 
-```python manage.py startapp tasks```
-
+`python manage.py startapp tasks`
 
 **Configuring env file**
 
