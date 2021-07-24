@@ -1,33 +1,27 @@
-{% extends 'base.html' %}
-
-
-{% block title %} | Apply {% endblock %}
-
-
-{% block content %}
+{% extends 'base.html' %} {% block title %} | Apply {% endblock %} {% block content %}
 
 <form method="post">
     {% csrf_token %}
     <div class="flex h-screen bg-gray-200 items-center justify-center  mt-32 mb-32">
         <div class="grid bg-white rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
             <div class="flex justify-center py-4">
-            <div class="flex bg-purple-200 rounded-full md:p-4 p-2 border-2 border-purple-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-cursor-fill" viewBox="0 0 16 16">
+                <div class="flex bg-purple-200 rounded-full md:p-4 p-2 border-2 border-purple-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-cursor-fill" viewBox="0 0 16 16">
                     <path d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z"/>
                 </svg>
-            </div>
+                </div>
             </div>
 
             <div class="flex justify-center">
-            <div class="flex">
-                <h1 class="text-gray-600 font-bold md:text-2xl text-xl upper">You are applying for {{ task.task_name }}</h1>
-            </div>
+                <div class="flex">
+                    <h1 class="text-gray-600 font-bold md:text-2xl text-xl upper p-9">You are applying for {{ task.task_name }}</h1>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7">
                 <div class="grid grid-cols-1">
                     <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Status</label>
-                    <select name="status" required="" id="id_status" class="py-2 px-3 rounded-lg border-2 border-purple-700 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:border-transparent" >
+                    <select name="status" required="" id="id_status" class="py-2 px-3 rounded-lg border-2 border-purple-700 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:border-transparent">
                         <option value="0">On Going</option>
                     </select>
                 </div>
@@ -41,14 +35,14 @@
                 </div>
             </div>
 
-    
+
             <div class="grid grid-cols-1 mt-5 mx-7">
                 <label for="id_member" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold">Update member</label>
                 <select name="member" id="id_member" class="py-2 px-3 rounded-lg border-2 border-purple-700 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:border-transparent">
                     <option value={{ request.user.id }}>{{ request.user.in_club_name }}</option>
                 </select>
             </div>
-            
+
 
             <div class='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
                 <button class='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'><a href="{% url "task_detail" task.pk %}">Cancel</a></button>
