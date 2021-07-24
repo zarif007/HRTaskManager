@@ -1,13 +1,12 @@
 from datetime import datetime, timedelta
 from django.utils.safestring import mark_safe
-import os
 import random
 import secrets
 import string
 from tasks.utils import Calendar
 import calendar
 
-from django.contrib import auth, messages
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -21,7 +20,6 @@ from django.urls import reverse
 from django.views import generic
 from django.views.generic.edit import UpdateView
 
-from tasks import forms
 
 from .forms import CustomUserCreationForm, TaskApplyModelForm, TaskModelForm
 from .models import Event, Task, User
@@ -127,7 +125,12 @@ def task_creation(request):
         if form.is_valid():
             form.save()
 
-            
+
+            event = Event.objects.create(title=form.cleaned_data['task_name'], 
+                    description=form.cleaned_data['description'],
+                    end_time=form.cleaned_data['last_date'])
+
+            event.save()
 
             if form.cleaned_data['assign_status']:
                 user_name = form.cleaned_data['member']

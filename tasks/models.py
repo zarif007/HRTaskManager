@@ -61,6 +61,6 @@ class User(AbstractUser):
 
 class Event(models.Model):
     title = models.CharField(max_length=200)
-    description = models.TextField()
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
+    description = models.TextField(blank=True, null=True)
+    start_time = models.DateField(default=datetime.now, blank=True)
+    end_time = models.DateField(default=datetime.now, blank=True)
