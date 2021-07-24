@@ -1,105 +1,84 @@
 <!-- component -->
 <!-- This is an example component -->
 
-{% extends 'base.html' %}
-
-
-{% block title %} | Invite {% endblock %}
-
-
-{% block content %}
+{% extends 'base.html' %} {% block title %} | Invite {% endblock %} {% block content %}
 
 <style>
-  
-.calendar {
-  width: 98%;
-  margin: auto;
-  font-size: 13px;
-  font-family: sans-serif;
-}
-
-
-.calendar tr, .calendar td {
-  border: 3px solid rgb(178, 142, 204);
-}
-
-.calendar th {
-  padding: 10px;
-  text-align: center;
-  font-size: 18px;
-}
-
-.calendar td {
-  width: 200px;
-  height: 150px;
-  padding: 30px 0px 0px 10px;
-}
-
-.month {
-  font-size: 25px;
-}
-
-.date {
-  font-size: 20px;
-}
-
-ul {
-  height: 100%;
-  padding: 0px 5px 0px 20px;
-}
-
-tbody{
-  padding: 10px;
-}
-
-.starting{
-  color: white;
-  background-color: darksalmon;
-  padding: 5px;
-  margin: 3px;
-  border-radius: 5px;
-}
-
-.ending{
-  color: darkslategrey;
-  background-color: lightpink;
-  padding: 5px;
-  margin: 3px;
-  border-radius: 5px;
-}
-
+    .calendar {
+        width: 98%;
+        margin: auto;
+        font-size: 13px;
+        font-family: sans-serif;
+        margin-bottom: 100px;
+    }
+    
+    .calendar tr,
+    .calendar td {
+        border: 3px solid rgb(178, 142, 204);
+    }
+    
+    .calendar th {
+        padding: 10px;
+        text-align: center;
+        font-size: 18px;
+    }
+    
+    .calendar td {
+        width: 200px;
+        height: 150px;
+        padding: 30px 0px 0px 10px;
+    }
+    
+    .month {
+        font-size: 25px;
+    }
+    
+    .date {
+        font-size: 20px;
+    }
+    
+    ul {
+        height: 100%;
+        padding: 0px 5px 0px 20px;
+    }
+    
+    tbody {
+        padding: 10px;
+    }
+    
+    .ending {
+        color: darkslategrey;
+        background-color: lightpink;
+        padding: 5px;
+        margin: 3px;
+        border-radius: 5px;
+    }
 </style>
 
 <br> <br>
 <div class="clearfix flex items-center lg:w-5/5 mx-auto border-b pb-10 mb-10 border-indigo-200 sm:flex-row flex-col">
-  <ul class="flex pagination">
-    <li class="page-item mx-1 px-3 py-2 bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-indigo-200 rounded-lg">
-      <a href="{% url 'calender_listings' %}?{{ prev_month }}" class="page-link flex items-center font-bold"> 
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+    <ul class="flex pagination">
+        <li class="page-item mx-1 px-3 py-2 bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-indigo-200 rounded-lg">
+            <a href="{% url 'calender_listings' %}?{{ prev_month }}" class="page-link flex items-center font-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
           <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z"/>
         </svg> <span style="padding: 5px;">Previous Month</span>
-      </a>
-    </li>
+            </a>
+        </li>
 
 
-    <li class="page-item mx-1 px-3 py-2 bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-indigo-200 rounded-lg">
-      <a href="{% url 'calender_listings' %}?{{ next_month }}" class="page-link flex items-center font-bold"> <span style="padding: 5px;">Next Month</span>
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
+        <li class="page-item mx-1 px-3 py-2 bg-indigo-200 text-indigo-500 hover:bg-indigo-500 hover:text-indigo-200 rounded-lg">
+            <a href="{% url 'calender_listings' %}?{{ next_month }}" class="page-link flex items-center font-bold"> <span style="padding: 5px;">Next Month</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
           <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1z"/>
-        </svg> 
-      </a>
-    </li>
+        </svg>
+            </a>
+        </li>
 
-</ul>
+    </ul>
 </div>
 
 
 
 
-<br> 
-{{ calendar }}
-
-
-
-
-{% endblock content %}
+<br> {{ calendar }} {% endblock content %}

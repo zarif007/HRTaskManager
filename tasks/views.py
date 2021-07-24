@@ -392,10 +392,11 @@ def edit_profile(request, pk):
     return render(request, 'user/edit_profile.html', context)
 
 
+
 class CalendarView(generic.ListView):
     model = Event
     template_name = 'calender.html'
-
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 

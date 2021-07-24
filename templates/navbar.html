@@ -1,45 +1,133 @@
 {% load static %}
 
-<header class="text-gray-600 body-font">
-  <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-    <nav class="flex lg:w-2/5 flex-wrap items-center text-base md:ml-auto ">
-      <a class="mr-5 hover:text-gray-900" href={% url 'task_history' %}>Tasks History</a>
-      <a class="mr-5 hover:text-gray-900" href={% url 'user_rank' %}>Rank</a>
-      <a class="mr-5 hover:text-gray-900" href={% url 'member_list' %}>Members</a>
-    </nav>
-    <a href="{% url 'task_listings' %}" class="flex order-first lg:order-none lg:w-1/5 title-font font-medium items-center text-gray-900 lg:items-center lg:justify-center mb-4 md:mb-0">
+<!-- <header class="text-gray-600 body-font">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+        <nav class="flex lg:w-2/5 flex-wrap items-center text-base md:ml-auto ">
+            <a class="mr-5 hover:text-gray-900" href={% url 'task_history' %}>Tasks History</a>
+            <a class="mr-5 hover:text-gray-900" href={% url 'user_rank' %}>Rank</a>
+            <a class="mr-5 hover:text-gray-900" href={% url 'member_list' %}>Members</a>
+        </nav>
+        <a href="{% url 'task_listings' %}" class="flex order-first lg:order-none lg:w-1/5 title-font font-medium items-center text-gray-900 lg:items-center lg:justify-center mb-4 md:mb-0">
       {% comment %} <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
       </svg> {% endcomment %}
       <img class="w-11 h-11 text-white  rounded-full" alt="hero" src="{% static 'img/logo1.png' %}">
       <span class="ml-3 text-xl">TaskManager</span>
     </a>
-    
-    <div class="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0" > 
+
+        <div class="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0">
 
 
 
-      {% if request.user.is_authenticated %}
-        <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0" ><a href="{% url 'user_profile' request.user.id %}">Profile : {{ request.user.in_club_name }}</a>
+            {% if request.user.is_authenticated %}
+            <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"><a href="{% url 'user_profile' request.user.id %}">Profile : {{ request.user.in_club_name }}</a>
             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
               <path d="M5 12h14M12 5l7 7-7 7"></path>
             </svg>
         </button>
-        <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"><a href="{% url 'signout' %}">Sign Out</a>
+            <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"><a href="{% url 'signout' %}">Sign Out</a>
           <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
             <path d="M5 12h14M12 5l7 7-7 7"></path>
           </svg>
-        </button>
-      {% else %}
-        <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"><a href="{% url 'signin' %}">Sign In</a>
+        </button> {% else %}
+            <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"><a href="{% url 'signin' %}">Sign In</a>
           <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
             <path d="M5 12h14M12 5l7 7-7 7"></path>
           </svg>
-        </button>
-      {% endif %}
+        </button> {% endif %}
+        </div>
     </div>
-  </div>
-</header>
+</header> -->
 
 
 
+<nav id="header" class="bg-wheat-500 w-full z-10 top-0 shadow">
+
+
+    <div class="w-full container mx-auto flex flex-wrap items-center mt-0 pt-3 pb-3 md:pb-0 ">
+
+        <div class="w-1/2 pl-2 md:pl-0 ">
+            <a href="{% url 'task_listings' %}" class="flex order-first lg:order-none lg:w-1/5 title-font font-medium items-center text-gray-900 lg:items-center lg:justify-center mb-4 md:mb-0">
+            {% comment %} <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg> {% endcomment %}
+            <img class="w-11 h-11 text-white  rounded-full" alt="hero" src="{% static 'img/logo1.png' %}">
+            <span class="ml-3 text-xl">TaskManager</span>
+          </a>
+        </div>
+        <div class="w-1/2 pr-0 pt-5 pb-0">
+            <div class="flex relative inline-block float-right">
+
+                {% if request.user.is_authenticated %}
+                <div class="relative text-sm text-gray-500">
+                    <button id="userButton" class="flex items-center focus:outline-none mr-3">
+                      {% if request.user.display_picture %}
+                      <img class="w-12 h-12 rounded-full mr-4" src="{{ request.user.display_picture.url }}" alt="Avatar of User"> <span class="hidden md:inline-block text-gray-500">{{ request.user.in_club_name }}</span>
+                      {% else %}
+                      <img class="w-12 h-12 rounded-full mr-4" src="https://dummyimage.com/720x600" alt="Avatar of User"> <span class="hidden md:inline-block text-gray-500">{{ request.user.in_club_name }}</span>
+                      {% endif %}
+                      <svg class="pl-2 h-2 fill-current text-gray-100" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129"><g><path d="m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z"/></g></svg>
+                    </button>
+                    <div id="userMenu" class="bg-gray-900 rounded shadow-md mt-2 absolute mt-12 top-0 right-0 min-w-full overflow-auto z-30 invisible">
+                        <ul class="list-reset">
+                            <li><a href="{% url 'user_profile' request.user.id %}" class="px-4 py-2 block text-gray-100 hover:bg-gray-800 no-underline hover:no-underline">My account</a></li>
+                            <li>
+                                <hr class="border-t mx-2 border-gray-400">
+                            </li>
+                            <li><a href="{% url 'signout' %}" class="px-4 py-2 block text-gray-100 hover:bg-gray-800 no-underline hover:no-underline">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+                {% else %}
+                <button class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"><a href="{% url 'signin' %}">Sign In</a>
+                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                  </svg>
+                </button> {% endif %}
+
+
+                <div class="block lg:hidden pr-4">
+                    <button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-100 hover:border-teal-500 appearance-none focus:outline-none">
+          <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+        </button>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 bg-white-900 z-20 relative" id="nav-content">
+            <ul class="list-reset lg:flex flex-1 items-center px-4 md:px-0">
+                <li class="mr-6 my-2 md:my-0">
+                    <a href="{% url 'task_listings' %}" class="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-black-100 border-b-2 border-gray-900 hover:border-blue-400">
+                        <i class="fas fa-columns mr-3"></i></i><span class="pb-1 md:pb-0 text-sm">Dashboard</span>
+                    </a>
+                </li>
+                <li class="mr-6 my-2 md:my-0 ">
+                    <a href="{% url 'member_list' %}" class="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-black-100 border-b-2 border-gray-900 hover:border-green-400 ">
+                        <i class="fas fa-user-friends mr-3"></i><span class="pb-1 md:pb-0 text-sm ">Members</span>
+                    </a>
+                </li>
+                <li class="mr-6 my-2 md:my-0">
+                    <a href="{% url 'task_history' %}" class="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-black-100 border-b-2 border-gray-900 hover:border-pink-400 ">
+                        <i class="fas fa-tasks fa-fw mr-3 "></i><span class="pb-1 md:pb-0 text-sm ">Tasks History</span>
+                    </a>
+                </li>
+                <li class="mr-6 my-2 md:my-0 ">
+                    <a href="{% url 'calender_listings' %}" class="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-black-100 border-b-2 border-gray-900 hover:border-purple-400 ">
+                        <i class="far fa-calendar-alt mr-3 "></i><span class="pb-1 md:pb-0 text-sm ">Calender</span>
+                    </a>
+                </li>
+                <li class="mr-6 my-2 md:my-0 ">
+                    <a href="{% url 'user_rank' %}" class="block py-1 md:py-3 pl-1 align-middle text-gray-500 no-underline hover:text-black-100 border-b-2 border-gray-900 hover:border-green-400 ">
+                        <i class="fas fa-chart-area fa-fw mr-3 "></i><span class="pb-1 md:pb-0 text-sm ">Rank</span>
+                    </a>
+                </li>
+            </ul>
+
+
+
+        </div>
+
+    </div>
+</nav>
