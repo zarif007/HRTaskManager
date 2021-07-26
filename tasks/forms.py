@@ -3,14 +3,15 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UsernameField
 from django.forms import fields, models
 
-from .models import Task, User
+from .models import Task, User, Announcements
 
 User = get_user_model()
+
 
 class CustomUserCreationForm(UserCreationForm):
 
     class Meta:
-        model = User 
+        model = User
         fields = (
             'username',
             'in_club_name',
@@ -40,6 +41,26 @@ class TaskModelForm(forms.ModelForm):
             'assign_status',
             'code',
             'member',
+        )
+
+
+class AnnouncementsModelForm(forms.ModelForm):
+
+    event_date = forms.DateField(input_formats=['%d/%m/%Y'])
+
+    class Meta:
+        model = Announcements
+
+        fields = (
+            'title',
+            'picture',
+            'about',
+            'instructions',
+            'url',
+            'tagged',
+            'event_date',
+            'duration',
+            'platform',
         )
 
 

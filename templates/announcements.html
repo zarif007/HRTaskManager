@@ -9,6 +9,11 @@
             </div>
             <p class="lg:w-1/2 w-full leading-relaxed text-gray-500"></p>
         </div>
+
+        <div class="flex-grow sm:text-left text-center mt-4 sm:mt-0 mb-8">
+            <button class="flex mx-auto mt-20 font-semibold text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"><a href="{% url 'announcement_creation' %}">Add Announcements</a></button>
+        </div>
+
         <div class="flex flex-wrap -m-4">
 
             {% for announcement in announcements %}
@@ -17,7 +22,11 @@
             <div class="xl:w-1/4 md:w-1/2 p-4">
                 <a href="{% url 'announcement' announcement.id %}">
                     <div class="bg-gray-100 rounded-lg">
-                        <img class="h-60 rounded w-full object-cover object-center mb-6" src="{{ announcement.picture.url }}" alt="content">
+
+                        {% if announcement.picture.url %}
+                        <img class="h-60 rounded w-full object-cover object-center mb-6" src="{{ announcement.picture.url }}" alt="content"> {% else %}
+                        <img class="h-40 rounded w-full object-cover object-center mb-6" src="https://dummyimage.com/721x401" alt="content"> {% endif %}
+
                         <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font pl-6">{{ announcement.event_date }} ( {{ announcement.duration }} )</h3>
                         <h2 class="text-lg text-gray-900 font-medium title-font mb-4 pl-6 pt-2">{{ announcement.title }}</h2>
                         <p class="leading-relaxed text-base pl-6 pt-1 pb-6 pr-4">{{ announcement.about }}</p>

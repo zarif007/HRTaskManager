@@ -1,0 +1,110 @@
+{% extends 'base.html' %} {% block title %} | Invite {% endblock %} {% block content %}
+
+
+<!-- <form method="post" enctype="multipart/form-data">
+    {% csrf_token %} {{ form.as_p }}
+    <button type="submit">create</button>
+</form> -->
+
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="flex h-screen bg-gray-200 items-center justify-center  mt-40 mb-40">
+        <div class="grid bg-white rounded-lg shadow-xl w-11/12 md:w-9/12 lg:w-1/2">
+            <div class="flex justify-center py-4">
+                <div class="flex bg-purple-200 rounded-full md:p-4 p-2 border-2 border-purple-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+            </svg>
+                </div>
+            </div>
+
+            <div class="flex justify-center">
+                <div class="flex">
+                    <h1 class="text-gray-600 font-bold md:text-2xl text-xl">Add Announcements</h1>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 mt-5 mx-7">
+                <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold" for="id_username">Title</label>
+                <input type="text" name="title" maxlength="200" required="" id="id_title" class=" py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent " />
+            </div>
+
+            <div class="grid grid-cols-1 mt-5 mx-7 ">
+                <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold " for="id_in_club_name ">About</label>
+                <input name="about" maxlength="1000" id="id_about" class="py-8 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:border-transparent" />
+            </div>
+
+            <div class="grid grid-cols-1 mt-5 mx-7 ">
+                <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold " for="id_in_club_name ">Instructions</label>
+                <input name="instructions" maxlength="1000" id="id_instructions" class="py-16 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-800 focus:border-transparent" />
+            </div>
+
+            <div class="grid grid-cols-1 mt-5 mx-7">
+                <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold" for="id_username">URL</label>
+                <input type="url" name="url" maxlength="200" id="id_url" class=" py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent " />
+            </div>
+
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7 ">
+                <div class="grid grid-cols-1 ">
+                    <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold " for="id_event_date">Event Date</label>
+                    <input type="text" name="event_date" required="" id="id_event_date" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent " type="text
+                    " placeholder="Input 2 " />
+                </div>
+
+
+
+                <div class="grid grid-cols-1 ">
+                    <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold " for="id_duration">Duration</label>
+                    <input type="text" name="duration" maxlength="100" id="id_duration" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent " type="text
+                    " placeholder="Input 2 " />
+                </div>
+            </div>
+
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5 mx-7 ">
+                <div class="grid grid-cols-1 ">
+                    <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold " for="id_tagged">Tag People</label>
+                    <select name="tagged" id="id_tagged" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent ">
+                        <option value="0">None</option>
+                      
+                        <option value="1">Everyone</option>
+                      
+                      </select>
+                </div>
+
+                <div class="grid grid-cols-1 ">
+                    <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold " for="id_platform">Platform</label>
+                    <input type="text" name="platform" maxlength="100" id="id_platform" class="py-2 px-3 rounded-lg border-2 border-purple-300 mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent " type="text
+                    " placeholder="Input 2 " />
+                </div>
+            </div>
+
+
+            <div class="grid grid-cols-1 mt-5 mx-7 ">
+                <label for="id_picture" class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1 ">Upload Photo</label>
+                <div class='flex items-center justify-center w-full'>
+                    <label class='flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-purple-300 group'>
+                        <div class='flex flex-col items-center justify-center pt-7'>
+                        <svg class="w-10 h-10 text-purple-400 group-hover:text-purple-600 " fill="none " stroke="currentColor " viewBox="0 0 24 24 " xmlns="http://www.w3.org/2000/svg "><path stroke-linecap="round " stroke-linejoin="round
+                        " stroke-width="2 " d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z "></path></svg>
+                        <p class='lowercase text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider'>Select a photo</p>
+                        </div>
+                        <input type="file" name="picture" accept="image/*" id="id_picture"/>
+                </label>
+                </div>
+            </div>
+
+            <div class='flex items-center justify-center  md:gap-8 gap-4 pt-5 pb-5'>
+                <button class='w-auto bg-gray-500 hover:bg-gray-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'><a href="{% url "announcements" %} ">Cancel</a></button>
+                <button type="submit " class='w-auto bg-purple-500 hover:bg-purple-700 rounded-lg shadow-xl font-medium text-white px-4 py-2'>Create</button>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+{% endblock content %}

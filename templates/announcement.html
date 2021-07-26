@@ -13,7 +13,9 @@
         </div>
         <div class="lg:w-5/6 mx-auto">
             <div class="rounded-lg h-70 overflow-hidden">
-                <img alt="content" class="object-cover object-center h-full w-full" src="{{ announcement.picture.url }}">
+                {% if announcement.picture.url %}
+                <img alt="content" class="object-cover object-center h-full w-full" src="{{ announcement.picture.url }}"> {% else %}
+                <img alt="content" class="object-cover object-center h-full w-full" src="https://dummyimage.com/721x401"> {% endif %}
             </div>
 
             <section class="text-gray-600 body-font">

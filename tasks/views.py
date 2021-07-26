@@ -21,7 +21,7 @@ from django.views import generic
 from django.views.generic.edit import UpdateView
 
 
-from .forms import CustomUserCreationForm, TaskApplyModelForm, TaskModelForm
+from .forms import AnnouncementsModelForm, CustomUserCreationForm, TaskApplyModelForm, TaskModelForm
 from .models import Event, Task, User, Announcements
 
 
@@ -451,3 +451,27 @@ def announcement(request, pk):
     }
 
     return render(request, 'announcement.html', context)
+
+
+def announcement_creation(request):
+    announcement = Announcements.objects.all()
+    form = AnnouncementsModelForm(request.POST, request.FILES)
+
+    if form.is_valid():
+        form.save()
+        print(form)
+
+        event = Event.objects.create(title=form.cleaned_data['title'],
+                                     description=form.cleaned_data['about'],
+                                     end_time=form.cleaned_data['event_date'])
+
+        event.save()
+
+        return redirect('announcements')
+
+    context = {
+        'form': form,
+        'announcement': announcement,
+    }
+
+    return render(request, 'announcement_creation.html', context)
