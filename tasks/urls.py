@@ -12,6 +12,7 @@ urlpatterns = [
     path('tasks_history', views.task_history, name='task_history'),
     path('rank', views.user_rank, name='user_rank'),
     path('announcements', views.announcements, name='announcements'),
+    path('announcement/<int:pk>/', views.announcement, name='announcement'),
     path('signin/', LoginView.as_view(), name='signin'),
     path('signout/', LogoutView.as_view(), name='signout'),
     path('signup/', views.SignUpView.as_view(), name='signup'),

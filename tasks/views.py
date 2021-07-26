@@ -440,3 +440,14 @@ def announcements(request):
     }
 
     return render(request, 'announcements.html', context)
+
+
+def announcement(request, pk):
+
+    announcement = Announcements.objects.get(id=pk)
+
+    context = {
+        'announcement': announcement,
+    }
+
+    return render(request, 'announcement.html', context)

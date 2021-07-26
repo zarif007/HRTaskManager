@@ -91,6 +91,7 @@ class Announcements(models.Model):
     tagged = models.BooleanField(choices=tag, default=0, null=True, blank=True)
     event_date = models.DateField(default=datetime.now, blank=True)
     duration = models.CharField(max_length=100, blank=True, null=True)
+    platform = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return self.title
