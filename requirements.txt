@@ -1,10 +1,14 @@
 asgiref==3.3.4
+autopep8==1.5.7
 Django==3.2.4
 django-environ==0.4.5
 env-file==2020.12.3
 Pillow==8.2.0
 psycopg2==2.8.6
+pycodestyle==2.7.0
 pytz==2021.1
 sqlparse==0.4.1
+toml==0.10.2
 typing-extensions==3.10.0.0
 values==2020.12.3
+whitenoise==5.3.0
